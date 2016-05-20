@@ -31,7 +31,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 			    {
 					if (isDebug)
 					{
-						alert(method[i]);
+						alert(method[i] + '=' + tmpVar);
 					}
 				    break;
 			    }
@@ -67,13 +67,14 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     function Calc_v()
     {
 	    var method = new Array(
+				"(oo-Math.sqrt(Math.pow(oo,2)-4*f*oo))/2",
 			    "1/(1/f-1/u)",
                 "f*(p+1)",
 			    "oo-u",
 			    "oo-f*(p+1)/p",
                 "p*u"
 		    );
-	    v = Clac_Var(method);
+	    v = Clac_Var(method, false);
     }
 
     function Calc_ru()
