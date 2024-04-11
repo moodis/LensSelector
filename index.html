@@ -10,7 +10,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 </script>
 <script type="text/javascript">
     var f, u, v, oo, is, os, p, flange, oc;
-    var varArr = new Array('f', 'bsh', 'bfs', 'ldn', 'u', 'v', 'oo', 'ru', 'rv', 'roo', 'is', 'os', 'ang', 'sp', 'rs', 'p', 'flange', 'oc', 'aperture', 'fdf', 'bdf', 'df');
+    var varArr = new Array('f', 'bsh', 'bfs', 'ldn', 'u', 'v', 'oo', 'ru', 'rv', 'roo', 'sp', 'pc', 'is', 'os', 'ang', 'rs', 'p', 'flange', 'oc', 'aperture', 'fdf', 'bdf', 'df');
 	var varDefaultZero = new Array('bsh');
 
     function Clac_Var(method)
@@ -113,11 +113,26 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 	    roo = Clac_Var(method);
 	    //alert('u=' + u + '\nv=' + v + '\noo=' + oo);
     }
+    
+    function Calc_sp() {
+        var method = new Array(
+			    "p*rs"
+		    );
+        sp = Clac_Var(method);
+    }
+    
+    function Calc_pc() {
+        var method = new Array(
+			    "is/sp"
+		    );
+        pc = Clac_Var(method);
+    }
 
     function Calc_is()
     {
 	    var method = new Array(
-			    "os*p"
+			    "os*p",
+			    "sp*pc"
 		    );
 	    is = Clac_Var(method);
     }
@@ -146,12 +161,6 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
         //alert("calc_os");
         ang = Clac_Var(method);
         //alert(is + "\n" + p + "\n");
-    }
-    function Calc_sp() {
-        var method = new Array(
-			    "p*rs"
-		    );
-        sp = Clac_Var(method);
     }
 	
     function Calc_rs() {
@@ -597,6 +606,18 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
             <th><input id="roo_check" type="checkbox"></th>
         </tr>
         <tr>
+            <th><label for="sp">像元尺寸(sp)</label></th>
+            <th><input id="sp" type="tel"></th>
+            <th id="sp_result"></th>
+            <th><input id="sp_check" type="checkbox"></th>
+        </tr>
+        <tr>
+            <th><label for="pc">像元数量(pc)</label></th>
+            <th><input id="pc" type="tel"></th>
+            <th id="pc_result"></th>
+            <th><input id="pc_check" type="checkbox"></th>
+        </tr>
+        <tr>
             <th><label for="is">成像尺寸(is)</label></th>
             <th><input id="is" type="tel"></th>
             <th id="is_result"></th>
@@ -613,12 +634,6 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
             <th><input id="ang" type="tel"></th>
             <th id="ang_result"></th>
             <th><input id="ang_check" type="checkbox"></th>
-        </tr>
-        <tr>
-            <th><label for="sp">像元尺寸(sp)</label></th>
-            <th><input id="sp" type="tel"></th>
-            <th id="sp_result"></th>
-            <th><input id="sp_check" type="checkbox"></th>
         </tr>
         <tr>
             <th><label for="rs">分辨率(rs)</label></th>
