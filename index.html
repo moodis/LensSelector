@@ -10,7 +10,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 </script>
 <script type="text/javascript">
     var f, u, v, oo, is, os, p, flange, oc;
-    var varArr = new Array('f', 'bsh', 'bfs', 'ldn', 'u', 'v', 'oo', 'ru', 'rv', 'roo', 'sp', 'pc', 'is', 'os', 'ang', 'rs', 'p', 'flange', 'oc', 'aperture', 'fdf', 'bdf', 'df');
+    var varArr = new Array('f', 'bsh', 'bfs', 'ldn', 'u', 'v', 'oo', 'ru', 'rv', 'roo', 'sp', 'pc', 'is', 'imageCircle', 'os', 'ang', 'rs', 'p', 'flange', 'oc', 'aperture', 'fdf', 'bdf', 'df', 'uniMin', 'uniMax', 'linkMin', 'linkMax', 'linkAvg');
 	var varDefaultZero = new Array('bsh');
 
     function Clac_Var(method)
@@ -130,11 +130,25 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
     function Calc_is()
     {
-	    var method = new Array(
-			    "os*p",
-			    "sp*pc"
-		    );
-	    is = Clac_Var(method);
+        var method = new Array(
+                "os*p",
+                "sp*pc"
+            );
+        is = Clac_Var(method);
+    }
+
+    function Calc_imageCircle()
+    {
+        /*var method = new Array(
+                "os*p",
+                "sp*pc"
+            );
+        is = Clac_Var(method);*/
+        $('#imageCircle_result').css('background-color', 'transparent');
+        if (imageCircle < is)
+        {
+            $('#imageCircle_result').css('background-color', 'red');
+        }
     }
 
     function Calc_os()
@@ -207,9 +221,33 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     function Calc_df() {
         //alert("clac_oc");
         var method = new Array(
-			    "fdf+bdf"
-		    );
+                "fdf+bdf"
+            );
         df = Clac_Var(method);
+    }
+
+    function Calc_linkMin() {
+        //alert("clac_oc");
+        var method = new Array(
+                "v-flange-uniMax"
+            );
+        linkMin = Clac_Var(method);
+    }
+
+    function Calc_linkMax() {
+        //alert("clac_oc");
+        var method = new Array(
+                "v-flange-uniMin"
+            );
+        linkMax = Clac_Var(method);
+    }
+
+    function Calc_linkAvg() {
+        //alert("clac_oc");
+        var method = new Array(
+                "(linkMin+linkMax)/2"
+            );
+        linkAvg = Clac_Var(method);
     }
 
     function Calc_Tmp(varName)
@@ -312,22 +350,23 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 		    ShowResult(varArr[i]);
 	    };
 
-        try {
-            for (var i = 0; i < varArr.length; i++) {
-                //alert('$("#' + varArr[i] + '")[0].value');
-                eval('var tmpVarValue = $("#' + varArr[i] + '")[0].value');
-                if (tmpVarValue)
-                {
-                    //alert('localStorage.' + varArr[i] + '=' + tmpVarValue);
-                    eval('localStorage.' + varArr[i] + '="' + tmpVarValue + '"');
-                }
-                //alert('$("#' + varArr[i] + '_check")[0].checked');
-                var tmpVarCheck = eval('$("#' + varArr[i] + '_check")[0].checked');
-                //alert('localStorage.' + varArr[i] + '_check=' + tmpVarCheck);
-                eval('localStorage.' + varArr[i] + '_check=' + tmpVarCheck);
+        for (var i = 0; i < varArr.length; i++) {
+            try
+            {
+                    //alert('$("#' + varArr[i] + '")[0].value');
+                    eval('var tmpVarValue = $("#' + varArr[i] + '")[0].value');
+                    if (tmpVarValue)
+                    {
+                        //alert('localStorage.' + varArr[i] + '=' + tmpVarValue);
+                        eval('localStorage.' + varArr[i] + '="' + tmpVarValue + '"');
+                    }
+                    //alert('$("#' + varArr[i] + '_check")[0].checked');
+                    var tmpVarCheck = eval('$("#' + varArr[i] + '_check")[0].checked');
+                    //alert('localStorage.' + varArr[i] + '_check=' + tmpVarCheck);
+                    eval('localStorage.' + varArr[i] + '_check=' + tmpVarCheck);
             }
+            catch (err) { }
         }
-        catch (err) { }
     }
 
 	function registVarClickChange(varName)
@@ -446,17 +485,22 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 	    ];
 
 	    var lenses = [
-	        { "name": "Schneider Mk-CPN 2.8/28", "f": 29.29, "bsh": 2.94, "ldn": 28.6, "bfs": 25.13 },
-	        { "name": "Schneider Mk-CPN 2.8/35", "f": 34.98, "bsh": 3.54, "ldn": 28.6, "bfs": 30.75 },
-	        { "name": "Schneider Mk-APO-CPN 2.8/40", "f": 41.52, "bsh": 2.19, "ldn": 28.6, "bfs": 38.11 },
-	        { "name": "Schneider Mk-APO-CPN 4.0/45", "f": 46.53, "bsh": 1.8, "ldn": 28.6, "bfs": 42.35 },
-	        { "name": "Schneider Mk-CPN-S 2.8/50", "f": 50.17, "bsh": 3.14, "ldn": 28.6, "bfs": 42 },
-	        { "name": "Schneider Mk-APO-CPN 4.0/60", "f": 59.94, "bsh": 1.85, "ldn": 28.6, "bfs": 53.29 },
-	        { "name": "Schneider Mk-CPN-S 4.0/80", "f": 80.34, "bsh": 1.81, "ldn": 28.6, "bfs": 77.5 },
-	        { "name": "Schneider Makro MSR 5.6/80*", "f": 82.4, "bsh": 1.31, "ldn": 28.6, "bfs": 77.62 },
-	        { "name": "Schneider Mk-APO-CPN 4.5/90**", "f": 91.2, "bsh": 3.6, "ldn": 28.6, "bfs": 86.5 },
-	        { "name": "Schneider Mk-CPN-S 5.6/100***", "f": 102.34, "bsh": 2.38, "ldn": 28.6, "bfs": 95.87 },
+	        { "name": "Schneider Mk-CPN 2.8/28", "f": 29.29, "bsh": 2.94, "ldn": 28.6, "bfs": 25.13, "imageCircle":30 },
+	        { "name": "Schneider Mk-CPN 2.8/35", "f": 34.98, "bsh": 3.54, "ldn": 28.6, "bfs": 30.75, "imageCircle":30 },
+	        { "name": "Schneider Mk-APO-CPN 2.8/40", "f": 41.52, "bsh": 2.19, "ldn": 28.6, "bfs": 38.11, "imageCircle":42 },
+	        { "name": "Schneider Mk-APO-CPN 4.0/45", "f": 46.53, "bsh": 1.8, "ldn": 28.6, "bfs": 42.35, "imageCircle":42 },
+	        { "name": "Schneider Mk-CPN-S 2.8/50", "f": 50.17, "bsh": 3.14, "ldn": 28.6, "bfs": 42, "imageCircle":42 },
+	        { "name": "Schneider Mk-APO-CPN 4.0/60", "f": 59.94, "bsh": 1.85, "ldn": 28.6, "bfs": 53.29, "imageCircle":62 },
+	        { "name": "Schneider Mk-CPN-S 4.0/80", "f": 80.34, "bsh": 1.81, "ldn": 28.6, "bfs": 77.5, "imageCircle":78 },
+	        { "name": "Schneider Makro MSR 5.6/80*", "f": 82.4, "bsh": 1.31, "ldn": 28.6, "bfs": 77.62, "imageCircle":151 },
+	        { "name": "Schneider Mk-APO-CPN 4.5/90**", "f": 91.2, "bsh": 3.6, "ldn": 28.6, "bfs": 86.5, "imageCircle":89 },
+	        { "name": "Schneider Mk-CPN-S 5.6/100***", "f": 102.34, "bsh": 2.38, "ldn": 28.6, "bfs": 95.87, "imageCircle":97 },
 	    ];
+
+        var unifoc = [
+            {"name": "Unifoc-7", "uniMin": 20, "uniMax": 27},
+            {"name": "Unifoc-12", "uniMin": 23.4-6, "uniMax": 23.4+6},
+        ]
 
 	    $(document).ready(function () {
 	        var ctl;
@@ -470,6 +514,12 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 	        for (var i = 0; i < lenses.length; i++) {
 	            if (lenses[i].name) {
 	                ctl.options[ctl.options.length] = new Option(lenses[i].name, i);
+	            }
+	        }
+	        ctl = $('#Unifoc')[0];
+	        for (var i = 0; i < unifoc.length; i++) {
+	            if (unifoc[i].name) {
+	                ctl.options[ctl.options.length] = new Option(unifoc[i].name, i);
 	            }
 	        }
 	    });
@@ -509,7 +559,20 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
                 "f",
                 "ldn",
                 "bfs",
-                "bsh"
+                "bsh",
+                "imageCircle",
+            );
+	        for (var i = 0; i < paramList.length; i++) {
+	            updateValueToHtml(lens, paramList[i]);
+	        }
+	        Calc();
+	    });
+	    $('#Unifoc').change(function () {
+	        var index = $("#Unifoc").val();
+	        var lens = unifoc[index];
+	        var paramList = new Array(
+                "uniMin",
+                "uniMax",
             );
 	        for (var i = 0; i < paramList.length; i++) {
 	            updateValueToHtml(lens, paramList[i]);
@@ -624,6 +687,12 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
             <th><input id="is_check" type="checkbox"></th>
         </tr>
         <tr>
+            <th><label for="imageCircle">像圈(imageCircle)</label></th>
+            <th><input id="imageCircle" type="tel"></th>
+            <th id="imageCircle_result"></th>
+            <th><input id="imageCircle_check" type="checkbox"></th>
+        </tr>
+        <tr>
             <th><label for="os">物体尺寸(os)</label></th>
             <th><input id="os" type="tel"></th>
             <th id="os_result"></th>
@@ -660,6 +729,36 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
             <th><input id="oc_check" type="checkbox"></th>
         </tr>
         <tr>
+            <th><label for="uniMin">Unifoc最短(uniMin)</label></th>
+            <th><input id="uniMin" type="tel"></th>
+            <th id="uniMin_result"></th>
+            <th><input id="uniMin_check" type="checkbox"></th>
+        </tr>
+        <tr>
+            <th><label for="uniMax">Unifoc最短(uniMax)</label></th>
+            <th><input id="uniMax" type="tel"></th>
+            <th id="uniMax_result"></th>
+            <th><input id="uniMax_check" type="checkbox"></th>
+        </tr>
+        <tr>
+            <th><label for="linkMin">接圈最短(linkMin)</label></th>
+            <th><input id="linkMin" type="tel" disabled="true"></th>
+            <th id="linkMin_result"></th>
+            <th><input id="linkMin_check" type="checkbox" disabled="true"></th>
+        </tr>
+        <tr>
+            <th><label for="linkMax">接圈最长(linkMax)</label></th>
+            <th><input id="linkMax" type="tel" disabled="true"></th>
+            <th id="linkMax_result"></th>
+            <th><input id="linkMax_check" type="checkbox" disabled="true"></th>
+        </tr>
+        <tr>
+            <th><label for="linkAvg">接圈最佳(linkAvg)</label></th>
+            <th><input id="linkAvg" type="tel" disabled="true"></th>
+            <th id="linkAvg_result"></th>
+            <th><input id="linkAvg_check" type="checkbox" disabled="true"></th>
+        </tr>
+        <tr>
             <th><label for="aperture">光圈(aperture)</label></th>
             <th><input id="aperture" type="tel"></th>
             <th id="aperture_result"></th>
@@ -692,6 +791,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
             <th>
             <label for="Lens">可选镜头</label><br>
             </th>
+            <th>
+            <label for="Lens">Unifoc</label><br>
+            </th>
         </tr>
         <tr>
             <th>
@@ -699,6 +801,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
             </th>
             <th>
             <select name="Lens" multiple="true" size="15" id="Lens"></select>
+            </th>
+            <th>
+            <select name="Unifoc" multiple="true" size="15" id="Unifoc"></select>
             </th>
         </tr>
     </table>
